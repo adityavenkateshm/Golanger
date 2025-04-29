@@ -239,12 +239,26 @@ Strong understanding of algorithms"
             <option value="USD">USD</option>
             <option value="EUR">EUR</option>
             <option value="GBP">GBP</option>
+            <option value="AUD">AUD</option>
+            <option value="CAD">CAD</option>
+            <option value="INR">INR</option>
+            <option value="JPY">JPY</option>
+            <option value="CNY">CNY</option>
+            <option value="BRL">BRL</option>
+            <option value="ZAR">ZAR</option>
+            <option value="MXN">MXN</option>
+            <option value="NZD">NZD</option>
+            <option value="SGD">SGD</option>
+            <option value="SEK">SEK</option>
+            <option value="NOK">NOK</option>
+            <option value="DKK">DKK</option>
+            <option value="AED">AED</option>
           </select>
         </div>
 
         <div>
           <label className="block text-sm font-medium mb-2">
-            Minimum Salary
+            Minimum Salary (in yrs)
           </label>
           <input
             type="number"
@@ -256,7 +270,7 @@ Strong understanding of algorithms"
 
         <div>
           <label className="block text-sm font-medium mb-2">
-            Maximum Salary
+            Maximum Salary (in yrs)
           </label>
           <input
             type="number"

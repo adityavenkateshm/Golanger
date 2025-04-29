@@ -61,7 +61,7 @@ export async function POST(request: Request) {
 
     console.log('Attempting to send job notification email...');
     const data = await resend.emails.send({
-      from: 'Resend <onboarding@resend.dev>', // Using Resend's sandbox domain
+      from: 'Golanger <info@golanger.co>',
       to: email,
       subject: `New Golang Job: ${job.title} at ${job.company}`,
       react: NewJobEmail({ job, baseUrl: BASE_URL }),

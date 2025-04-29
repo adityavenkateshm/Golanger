@@ -25,7 +25,7 @@ export async function POST(request: Request) {
 
     console.log('Attempting to send welcome email...');
     const data = await resend.emails.send({
-      from: 'Resend <onboarding@resend.dev>', // Using Resend's sandbox domain
+      from: 'Golanger <info@golanger.co>',
       to: email,
       subject: 'Welcome to Golanger Job Alerts',
       react: WelcomeEmail({ email, baseUrl: BASE_URL }),

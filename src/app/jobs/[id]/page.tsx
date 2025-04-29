@@ -6,6 +6,8 @@ import { useParams, useRouter } from 'next/navigation'
 import { useEffect, useState, useCallback } from 'react'
 import { JobSubscribeForm } from '@/components/jobs/JobSubscribeForm'
 import { useAuth } from '@clerk/nextjs'
+import { formatSalary } from '@/lib/utils/currency';
+
 
 export default function JobPage() {
   const { id } = useParams()
@@ -107,13 +109,12 @@ export default function JobPage() {
 
           <div>
             <h2 className="text-xl font-semibold mb-2">Salary</h2>
-            <p className="text-gray-400">
+            <p>
               {job.salary_min && job.salary_max
-                ? `${job.salary_currency || '$'}${job.salary_min.toLocaleString()} - ${job.salary_max.toLocaleString()}`
-                : 'Salary not specified'}
+              ? formatSalary(job.salary_min, job.salary_max, job.salary_currency)
+              : 'Salary not specified'}
             </p>
           </div>
-
           <div>
             <h2 className="text-xl font-semibold mb-2">Description</h2>
             <div 

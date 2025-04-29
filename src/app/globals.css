@@ -73,3 +73,40 @@ select:focus {
 body.menu-open {
   overflow: hidden;
 }
+
+/* Toast animations */
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+/* Toast container mobile adjustments */
+@media (max-width: 640px) {
+  .toast-container {
+    bottom: env(safe-area-inset-bottom, 1rem);
+    right: env(safe-area-inset-right, 1rem);
+    left: env(safe-area-inset-left, 1rem);
+    width: calc(100% - 2rem);
+  }
+
+  .toast-container > * {
+    width: 100%;
+  }
+}

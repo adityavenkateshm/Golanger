@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useToast } from '../toast/ToastProvider'
 
 interface JobSubscribeFormProps {
   inline?: boolean
@@ -9,19 +10,19 @@ interface JobSubscribeFormProps {
 export function JobSubscribeForm({ inline }: JobSubscribeFormProps) {
   const [email, setEmail] = useState('')
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
-  const [success, setSuccess] = useState(false)
+  //const [error, setError] = useState('')
+  //const [success, setSuccess] = useState(false)
+  const { showToast } = useToast()
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     
     if (!email || !email.includes('@')) {
-      setError('Please enter a valid email address')
+      showToast('Please enter a valid email address', 'error')
       return
     }
 
     setLoading(true)
-    setError('')
 
     try {
       const response = await fetch('/api/subscribe', {
@@ -46,24 +47,14 @@ export function JobSubscribeForm({ inline }: JobSubscribeFormProps) {
         throw new Error(data.error || 'Failed to subscribe')
       }
       
-      setSuccess(true)
+      showToast('Thanks for subscribing! Check your inbox for job alerts.', 'success')
       setEmail('')
     } catch (err: any) {
       console.error('Subscription error:', err)
-      setError(err.message || 'Failed to subscribe - please try again')
+      showToast(err.message || 'Failed to subscribe - please try again', 'error')
     } finally {
       setLoading(false)
     }
-  }
-
-  if (success) {
-    return (
-      <div className={inline ? 'inline-block' : ''}>
-        <p className="text-green-500">
-          Thanks for subscribing! Check your inbox for job alerts.
-        </p>
-      </div>
-    )
   }
 
   return (
@@ -85,7 +76,6 @@ export function JobSubscribeForm({ inline }: JobSubscribeFormProps) {
           {loading ? 'Subscribing...' : 'Get Job Alerts'}
         </button>
       </form>
-      {error && <p className="text-red-500 mt-2">{error}</p>}
     </div>
   )
 }

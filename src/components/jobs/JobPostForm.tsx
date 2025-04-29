@@ -4,18 +4,21 @@ import { createJob } from '@/lib/services/jobs'
 import { Job } from '@/types'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { useToast } from '../toast/ToastProvider'
+
 
 type JobFormData = Omit<Job, 'id' | 'posted_date' | 'status'>
 
 export function JobPostForm() {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
+  //const [error, setError] = useState('')
+  const { showToast } = useToast()
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     setLoading(true)
-    setError('')
+    //setError('')
 
     const formData = new FormData(e.currentTarget)
     const requirements = formData.get('requirements')?.toString().split('\n').map(r => r.trim()).filter(Boolean) || []
@@ -41,9 +44,11 @@ export function JobPostForm() {
       }
 
       const job = await createJob(data)
+      showToast('Job post created successfully!', 'success')
       router.push(`/jobs/${job.id}`)
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to create job post')
+      const errorMessage = err instanceof Error ? err.message : 'Failed to create job post'
+      showToast(errorMessage, 'error')
     } finally {
       setLoading(false)
     }
@@ -51,11 +56,11 @@ export function JobPostForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      {error && (
+      {/* {error && (
         <div className="bg-red-500/20 text-red-500 p-4 rounded-lg">
           {error}
         </div>
-      )}
+      )} */}
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>

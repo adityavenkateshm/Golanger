@@ -3,6 +3,7 @@
 import { Job } from '@/types'
 import Link from 'next/link'
 import { formatDistanceToNow } from 'date-fns'
+import { formatSalary } from '@/lib/utils/currency'
 
 interface JobCardProps {
   job: Job
@@ -50,7 +51,10 @@ export function JobCard({ job }: JobCardProps) {
       </div>
 
       <div className="flex justify-between items-center text-sm text-gray-400">
-        <span>{formattedSalary}</span>
+        {/* <span>{formattedSalary}</span> */}
+          <p>
+            {formatSalary(job.salary_min, job.salary_max, job.salary_currency)}
+          </p>
         <span>
           {formatDistanceToNow(new Date(job.posted_date), { addSuffix: true })}
         </span>

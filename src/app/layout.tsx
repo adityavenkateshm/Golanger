@@ -14,6 +14,7 @@ import Image from "next/image";
 import LogoMain from "../../public/images/logos/logo_main.svg";
 import { MobileMenu } from "@/components/MobileMenu";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { ToastProvider } from "@/components/toast/ToastProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -44,6 +45,7 @@ export default function RootLayout({
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <ClerkProvider>
         <body className="bg-slate-900 text-slate-50 font-sans min-h-screen">
+         <ToastProvider>
           <header>
             <nav className="container mx-auto px-4 h-16 flex items-center justify-between border-b border-white/10">
               <Link href="/" className="text-xl font-bold flex items-center shrink-0">
@@ -101,6 +103,7 @@ export default function RootLayout({
             <Breadcrumbs />
           </header>
           <main>{children}</main>
+         </ToastProvider>
         </body>
       </ClerkProvider>
     </html>
